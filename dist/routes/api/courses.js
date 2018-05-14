@@ -1,0 +1,188 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const Course_1 = require("../../models/Course");
+const Batch_1 = require("../../models/Batch");
+const Lecture_1 = require("../../models/Lecture");
+const Teacher_1 = require("../../models/Teacher");
+const Student_1 = require("../../models/Student");
+exports.courses = express_1.Router();
+exports.courses.get('/', (req, res) => {
+    return Course_1.Courses.findAll({
+        attributes: ['id', 'courseName']
+    })
+        .then((allCourses) => {
+        res.status(200).send(allCourses);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving Courses ' + err
+        });
+    });
+});
+exports.courses.get('/:id', (req, res) => {
+    return Course_1.Courses.find({
+        attributes: ['id', 'courseName'],
+        where: { id: [req.params.id] }
+    })
+        .then((course) => {
+        res.status(200).send(course);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving Course ' + err
+        });
+    });
+});
+exports.courses.get('/:id/batches', (req, res) => {
+    return Batch_1.Batches.findAll({
+        attributes: ['id', 'batchName'],
+        include: [{
+                model: Course_1.Courses,
+                attributes: ['courseName'],
+                required: true
+            }],
+        where: { cid: [req.params.id] }
+    })
+        .then((batches) => {
+        res.status(200).send(batches);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving batches ' + err
+        });
+    });
+});
+exports.courses.get('/:id/batches/:bid', (req, res) => {
+    return Batch_1.Batches.find({
+        attributes: ['id', 'batchName'],
+        include: [{
+                model: Course_1.Courses,
+                attributes: ['courseName'],
+                required: true
+            }],
+        where: {
+            cid: [req.params.id],
+            id: [req.params.bid]
+        }
+    })
+        .then((batches) => {
+        res.status(200).send(batches);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving batches ' + err
+        });
+    });
+});
+exports.courses.get('/:id/batches/:bid/lectures', (req, res) => {
+    return Lecture_1.Lectures.findAll({
+        attributes: ['id'],
+        include: [{
+                model: Batch_1.Batches,
+                attributes: ['batchName'],
+                include: [{
+                        model: Course_1.Courses,
+                        attributes: ['courseName'],
+                        required: true
+                    }],
+                where: {
+                    cid: [req.params.id],
+                    id: [req.params.bid]
+                }
+            }]
+    })
+        .then((lectures) => {
+        res.status(200).send(lectures);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving lectures ' + err
+        });
+    });
+});
+exports.courses.get('/:id/batches/:bid/lectures/:lid', (req, res) => {
+    return Lecture_1.Lectures.findOne({
+        attributes: ['id'],
+        include: [{
+                model: Batch_1.Batches,
+                attributes: ['batchName'],
+                include: [{
+                        model: Course_1.Courses,
+                        attributes: ['courseName'],
+                        required: true
+                    }],
+                where: {
+                    cid: [req.params.id],
+                    id: [req.params.bid]
+                }
+            }],
+        where: {
+            id: [req.params.lid]
+        }
+    })
+        .then((lectures) => {
+        res.status(200).send(lectures);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving lectures ' + err
+        });
+    });
+});
+exports.courses.get('/:id/batches/:bid/teachers', (req, res) => {
+    return Lecture_1.Lectures.findAll({
+        attributes: ['id'],
+        include: [{
+                model: Batch_1.Batches,
+                attributes: ['batchName'],
+                include: [{
+                        model: Course_1.Courses,
+                        attributes: ['courseName'],
+                        required: true
+                    }],
+                where: {
+                    cid: [req.params.id],
+                    id: [req.params.bid]
+                }
+            },
+            {
+                model: Teacher_1.Teachers,
+                attributes: ['teacherName']
+            }],
+        group: ['tid']
+    })
+        .then((lectures) => {
+        res.status(200).send(lectures);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving lectures ' + err
+        });
+    });
+});
+exports.courses.get('/:id/batches/:bid/students', (req, res) => {
+    return Batch_1.Batches.findAll({
+        attributes: ['batchName'],
+        include: [{
+                model: Course_1.Courses,
+                attributes: ['courseName'],
+            },
+            {
+                model: Student_1.Students,
+                attributes: ['studentName']
+            }],
+        where: {
+            cid: [req.params.id],
+            id: [req.params.bid]
+        }
+    })
+        .then((students) => {
+        res.status(200).send(students);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error retreiving students ' + err
+        });
+    });
+});
