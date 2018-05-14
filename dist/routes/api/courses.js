@@ -186,3 +186,23 @@ exports.courses.get('/:id/batches/:bid/students', (req, res) => {
         });
     });
 });
+//add a course
+exports.courses.post('/', (req, res) => {
+    return Course_1.Courses.create({
+        courseName: req.body.courseName,
+    })
+        .then((course) => {
+        res.status(200).send(course);
+    });
+});
+//delete a course
+exports.courses.delete('/:id', (req, res) => {
+    return Course_1.Courses.destroy({
+        where: { id: [req.params.id] }
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting course ' + err
+        });
+    });
+});
