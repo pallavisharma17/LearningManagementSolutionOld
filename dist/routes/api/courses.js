@@ -193,6 +193,11 @@ exports.courses.post('/', (req, res) => {
     })
         .then((course) => {
         res.status(200).send(course);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error creating course ' + err
+        });
     });
 });
 //delete a course
@@ -209,9 +214,50 @@ exports.courses.delete('/:id', (req, res) => {
 //update a course
 exports.courses.put('/:id', (req, res) => {
     return Course_1.Courses.update({ courseName: req.body.courseName }, { where: { id: [req.params.id] } })
+        .then((course) => {
+        res.status(200).send(course);
+    })
         .catch((err) => {
         res.status(500).send({
             error: 'Error updating course ' + err
+        });
+    });
+});
+//add a new batch
+exports.courses.post('/:id/batches', (req, res) => {
+    return Batch_1.Batches.create({
+        batchName: req.body.batchName,
+        cid: req.params.id
+    })
+        .then((batch) => {
+        res.status(200).send(batch);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error creating batch ' + err
+        });
+    });
+});
+//delete a batch
+exports.courses.delete('/:id/batches/:bid', (req, res) => {
+    return Batch_1.Batches.destroy({
+        where: { id: [req.params.bid] }
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting batch ' + err
+        });
+    });
+});
+//updating a batch
+exports.courses.put('/:id/batches/:bid', (req, res) => {
+    return Batch_1.Batches.update({ batchName: req.body.batchName }, { where: { id: [req.params.bid] } })
+        .then((batch) => {
+        res.status(200).send(batch);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error updating batch ' + err
         });
     });
 });
