@@ -51,3 +51,41 @@ exports.teachers.get('/:id/batches', (req, res) => {
         });
     });
 });
+//add a new teacher
+exports.teachers.post('/', (req, res) => {
+    return Teacher_1.Teachers.create({
+        teacherName: req.body.teacherName,
+        sid: req.body.sid
+    })
+        .then((teacher) => {
+        res.status(200).send(teacher);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error creating teacher ' + err
+        });
+    });
+});
+//updating a teacher
+exports.teachers.put('/:id', (req, res) => {
+    return Teacher_1.Teachers.update({ teacherName: req.body.teacherName }, { where: { id: [req.params.id] } })
+        .then((teacher) => {
+        res.status(200).send(teacher);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error updating teacher ' + err
+        });
+    });
+});
+//delete a teacher
+exports.teachers.delete('/:id', (req, res) => {
+    return Teacher_1.Teachers.destroy({
+        where: { id: [req.params.id] }
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting teacher ' + err
+        });
+    });
+});
