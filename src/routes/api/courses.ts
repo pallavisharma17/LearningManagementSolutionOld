@@ -222,3 +222,17 @@ courses.delete('/:id', (req, res) => {
             })
         })
 })
+
+//update a course
+courses.put('/:id', (req, res) => {
+    return Courses.update(
+        { courseName: req.body.courseName },
+        { where: { id: [req.params.id] } }
+    )
+
+        .catch((err) => {
+            res.status(500).send({
+                error: 'Error updating course ' + err
+            })
+        })
+})

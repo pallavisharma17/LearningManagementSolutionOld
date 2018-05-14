@@ -206,3 +206,12 @@ exports.courses.delete('/:id', (req, res) => {
         });
     });
 });
+//update a course
+exports.courses.put('/:id', (req, res) => {
+    return Course_1.Courses.update({ courseName: req.body.courseName }, { where: { id: [req.params.id] } })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error updating course ' + err
+        });
+    });
+});
