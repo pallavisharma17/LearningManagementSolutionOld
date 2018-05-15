@@ -45,3 +45,41 @@ exports.subjects.get('/:id/teachers', (req, res) => {
         });
     });
 });
+//add a new subject
+exports.subjects.post('/:id', (req, res) => {
+    return Subject_1.Subjects.create({
+        subjectName: req.body.subjectName,
+        cid: req.body.id
+    })
+        .then((subject) => {
+        res.status(200).send(subject);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error creating subject ' + err
+        });
+    });
+});
+//updating a subject
+exports.subjects.put('/:id', (req, res) => {
+    return Subject_1.Subjects.update({ subjectName: req.body.subjectName }, { where: { id: [req.params.id] } })
+        .then((result) => {
+        res.status(200).send(result);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error updating subject ' + err
+        });
+    });
+});
+//delete a subject
+exports.subjects.delete('/:id', (req, res) => {
+    return Subject_1.Subjects.destroy({
+        where: { id: [req.params.id] }
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting subject ' + err
+        });
+    });
+});

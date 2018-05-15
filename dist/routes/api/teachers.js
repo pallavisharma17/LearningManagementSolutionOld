@@ -69,8 +69,8 @@ exports.teachers.post('/', (req, res) => {
 //updating a teacher
 exports.teachers.put('/:id', (req, res) => {
     return Teacher_1.Teachers.update({ teacherName: req.body.teacherName }, { where: { id: [req.params.id] } })
-        .then((teacher) => {
-        res.status(200).send(teacher);
+        .then((result) => {
+        res.status(200).send(result);
     })
         .catch((err) => {
         res.status(500).send({

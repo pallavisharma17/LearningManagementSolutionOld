@@ -89,9 +89,6 @@ students.delete('/:id', (req, res) => {
     return Students.destroy({
         where: { id: [req.params.id] }
     })
-        .then((student) => {
-            res.status(200).send(student);
-        })
         .catch((err) => {
             res.status(500).send({
                 error: 'Error deleting student ' + err

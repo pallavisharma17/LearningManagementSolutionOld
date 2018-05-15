@@ -252,8 +252,8 @@ exports.courses.delete('/:id/batches/:bid', (req, res) => {
 //updating a batch
 exports.courses.put('/:id/batches/:bid', (req, res) => {
     return Batch_1.Batches.update({ batchName: req.body.batchName }, { where: { id: [req.params.bid] } })
-        .then((batch) => {
-        res.status(200).send(batch);
+        .then((result) => {
+        res.status(200).send(result);
     })
         .catch((err) => {
         res.status(500).send({

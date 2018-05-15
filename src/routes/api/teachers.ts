@@ -76,8 +76,8 @@ teachers.put('/:id', (req, res) => {
         { teacherName: req.body.teacherName },
         { where: { id: [req.params.id] } }
     )
-        .then((teacher) => {
-            res.status(200).send(teacher);
+        .then((result) => {
+            res.status(200).send(result);
         })
         .catch((err) => {
             res.status(500).send({

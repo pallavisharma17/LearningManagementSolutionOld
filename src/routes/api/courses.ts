@@ -278,8 +278,8 @@ courses.put('/:id/batches/:bid', (req, res) => {
         { batchName: req.body.batchName },
         { where: { id: [req.params.bid] } }
     )
-        .then((batch) => {
-            res.status(200).send(batch);
+        .then((result) => {
+            res.status(200).send(result);
         })
         .catch((err) => {
             res.status(500).send({
