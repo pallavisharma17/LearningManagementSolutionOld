@@ -8,7 +8,8 @@ const db_1 = require("../db");
 exports.Students = db_1.db.define('student', {
     studentRoll: {
         type: sequelize_1.default.INTEGER,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
     },
     studentName: {
         type: sequelize_1.default.STRING,

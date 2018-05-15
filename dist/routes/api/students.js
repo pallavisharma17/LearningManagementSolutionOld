@@ -49,3 +49,44 @@ exports.students.get('/:id/batches', (req, res) => {
         });
     });
 });
+//add a student
+exports.students.post('/', (req, res) => {
+    return Student_1.Students.create({
+        studentRoll: req.body.studentRoll,
+        studentName: req.body.studentName,
+    })
+        .then((student) => {
+        res.status(200).send(student);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error creating student ' + err
+        });
+    });
+});
+//updating a student
+exports.students.put('/:id', (req, res) => {
+    return Student_1.Students.update({ studentName: req.body.studentName }, { where: { id: [req.params.id] } })
+        .then((student) => {
+        res.status(200).send(student);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error updating student ' + err
+        });
+    });
+});
+//delete a student
+exports.students.delete('/:id', (req, res) => {
+    return Student_1.Students.destroy({
+        where: { id: [req.params.id] }
+    })
+        .then((student) => {
+        res.status(200).send(student);
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting student ' + err
+        });
+    });
+});
