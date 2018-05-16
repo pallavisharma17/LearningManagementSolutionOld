@@ -55,10 +55,10 @@ teachers.get('/:id/batches', (req, res) => {
 });
 
 //add a new teacher
-teachers.post('/', (req, res) => {
+teachers.post('/:id', (req, res) => {
     return Teachers.create({
         teacherName: req.body.teacherName,
-        sid: req.body.sid
+        sid: req.params.sid
     })
         .then((teacher) => {
             res.status(200).send(teacher);
