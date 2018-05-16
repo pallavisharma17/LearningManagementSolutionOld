@@ -5,11 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importDefault(require("sequelize"));
 exports.db = new sequelize_1.default({
-    username: 'root',
-    password: 'root',
-    database: 'learning_management_solution',
+    // username: 'root',
+    // password: 'root',
+    // database: 'learning_management_solution',
     host: 'localhost',
-    dialect: 'mysql',
+    //dialect: 'mysql',
+    dialect: 'sqlite',
+    storage: 'database.db',
     pool: {
         max: 5,
         min: 0,

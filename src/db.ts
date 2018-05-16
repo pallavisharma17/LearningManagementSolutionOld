@@ -1,11 +1,13 @@
 import Sequelize from 'sequelize';
 
 export const db = new Sequelize({
-    username: 'root',
-    password: 'root',
-    database: 'learning_management_solution',
+    // username: 'root',
+    // password: 'root',
+    // database: 'learning_management_solution',
     host: 'localhost',
-    dialect: 'mysql',
+    //dialect: 'mysql',
+    dialect: 'sqlite',
+    storage: 'database.db',
     pool: {
         max: 5,
         min: 0,
