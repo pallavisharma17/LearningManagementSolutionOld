@@ -58,7 +58,7 @@ teachers.get('/:id/batches', (req, res) => {
 teachers.post('/:id', (req, res) => {
     return Teachers.create({
         teacherName: req.body.teacherName,
-        sid: req.params.sid
+        sid: req.params.id
     })
         .then((teacher) => {
             res.status(200).send(teacher);
