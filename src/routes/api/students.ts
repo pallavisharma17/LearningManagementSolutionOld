@@ -1,6 +1,7 @@
 import express, { Router, Request } from 'express'
 import { Students } from '../../models/Student'
 import { Batches } from '../../models/Batch'
+import { BatchStudent } from '../../models/Batch'
 
 export const students: Router = Router();
 
@@ -51,6 +52,22 @@ students.get('/:id/batches', (req, res) => {
             })
         })
 });
+
+//add a student to a batch
+students.post('/:id/batches', (req, res) => {
+    return BatchStudent.create({
+        batchId: req.body.batchId,
+        studentId: req.params.id
+    })
+        .then((batchStudent) => {
+            res.status(200).json(batchStudent);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                error: 'Error enrolling in batch ' + err
+            })
+        })
+})
 
 //add a student
 students.post('/', (req, res) => {
