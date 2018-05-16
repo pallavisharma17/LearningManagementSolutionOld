@@ -91,7 +91,12 @@ exports.courses.get('/:id/batches/:bid/lectures', (req, res) => {
                     cid: [req.params.id],
                     id: [req.params.bid]
                 }
-            }]
+            },
+            {
+                model: Teacher_1.Teachers,
+                attributes: ['teacherName']
+            }
+        ]
     })
         .then((lectures) => {
         res.status(200).send(lectures);
