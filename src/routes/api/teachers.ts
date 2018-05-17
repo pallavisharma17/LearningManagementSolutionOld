@@ -7,7 +7,7 @@ export const teachers: Router = Router();
 
 teachers.get('/', (req, res) => {
     return Teachers.findAll({
-        attributes: ['id', 'teacherName']
+        attributes: ['id', 'teacherName','sid']
     })
         .then((allTeachers) => {
             res.status(200).send(allTeachers);

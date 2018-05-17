@@ -106,7 +106,7 @@ courses.get('/:id/batches/:bid/lectures', (req, res) => {
         ]
     })
         .then((lectures) => {
-            res.status(200).send(lectures);
+            res.status(200).json(lectures);
         })
         .catch((err) => {
             res.status(500).send({
@@ -126,6 +126,19 @@ courses.post('/:id/batches/:bid/lectures', (req, res) => {
         .catch((err) => {
             res.status(500).send({
                 error: 'Error creating lecture ' + err
+            })
+        })
+});
+
+courses.delete('/:id/batches/:bid/lectures/:lid', (req, res) => {
+    return Lectures.destroy({
+        where: {
+            id: [req.params.lid]
+        }
+    })
+        .catch((err) => {
+            res.status(500).send({
+                error: 'Error deleting lectures ' + err
             })
         })
 });
