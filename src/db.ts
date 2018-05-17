@@ -7,7 +7,7 @@ export const db = new Sequelize({
     host: 'localhost',
     //dialect: 'mysql',
     dialect: 'sqlite',
-    storage: 'database.db',
+    storage: 'data.db',
     pool: {
         max: 5,
         min: 0,

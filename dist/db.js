@@ -11,7 +11,7 @@ exports.db = new sequelize_1.default({
     host: 'localhost',
     //dialect: 'mysql',
     dialect: 'sqlite',
-    storage: 'database.db',
+    storage: 'data.db',
     pool: {
         max: 5,
         min: 0,
