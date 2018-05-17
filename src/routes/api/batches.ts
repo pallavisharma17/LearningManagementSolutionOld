@@ -6,7 +6,7 @@ export const batches: Router = Router();
 
 batches.get('/', (req, res) => {
     return Batches.findAll({
-        attributes: ['id', 'batchName','cid'],
+        attributes: ['id', 'batchName', 'cid'],
         include: [{
             model: Courses
         }]
@@ -20,3 +20,14 @@ batches.get('/', (req, res) => {
             })
         })
 });
+
+batches.delete('/:id', (req, res) => {
+    return Batches.destroy({
+        where: { id: [req.params.id] }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting batch ' + err
+        })
+    })
+})

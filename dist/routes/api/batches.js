@@ -20,3 +20,13 @@ exports.batches.get('/', (req, res) => {
         });
     });
 });
+exports.batches.delete('/:id', (req, res) => {
+    return Batch_1.Batches.destroy({
+        where: { id: [req.params.id] }
+    })
+        .catch((err) => {
+        res.status(500).send({
+            error: 'Error deleting batch ' + err
+        });
+    });
+});
