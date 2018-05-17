@@ -168,11 +168,7 @@ exports.courses.get('/:id/batches/:bid/teachers', (req, res) => {
         include: [
             {
                 model: Subject_1.Subjects,
-                attributes: ['id', 'subjectName'],
-                include: [{
-                        model: Course_1.Courses,
-                        attributes: ['id']
-                    }],
+                attributes: ['id', 'subjectName', 'cid'],
                 where: { cid: [req.params.id] }
             }
         ]

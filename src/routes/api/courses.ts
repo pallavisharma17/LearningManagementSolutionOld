@@ -176,18 +176,13 @@ courses.get('/:id/batches/:bid/lectures/:lid', (req, res) => {
 });
 
 courses.get('/:id/batches/:bid/teachers', (req, res) => {
+
     Teachers.findAll({
         attributes: ['id', 'teacherName'],
         include: [
             {
                 model: Subjects,
-                attributes: ['id', 'subjectName'],
-
-                include: [{
-                    model: Courses,
-                    attributes: ['id']
-                }],
-
+                attributes: ['id', 'subjectName', 'cid'],
                 where: { cid: [req.params.id] }
             }
         ]

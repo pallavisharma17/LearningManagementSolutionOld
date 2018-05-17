@@ -6,7 +6,7 @@ const Teacher_1 = require("../../models/Teacher");
 exports.subjects = express_1.Router();
 exports.subjects.get('/', (req, res) => {
     return Subject_1.Subjects.findAll({
-        attributes: ['id', 'subjectName']
+        attributes: ['id', 'subjectName', 'cid']
     })
         .then((allSubjects) => {
         res.status(200).send(allSubjects);

@@ -6,7 +6,7 @@ export const subjects: Router = Router();
 
 subjects.get('/', (req, res) => {
     return Subjects.findAll({
-        attributes: ['id', 'subjectName']
+        attributes: ['id', 'subjectName','cid']
     })
         .then((allSubjects) => {
             res.status(200).send(allSubjects);
