@@ -15,6 +15,6 @@ app.get('/', (req, res) => {
     res.redirect('index.html')
 })
 
-app.listen(process.env.PORT || 5555, ()=> {
-    console.log("Server started on http://localhost:5555");
+app.listen(process.env.PORT || 4200, ()=> {
+    console.log("Server started on http://localhost:4200");
 });
